@@ -12,9 +12,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
 import androidx.compose.material3.Button
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
@@ -28,9 +26,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -50,6 +45,7 @@ fun LoginScreen() {
         Spacer(modifier = Modifier.size(16.dp))
         Body(Modifier.align(Alignment.Center))
         Spacer(modifier = Modifier.size(16.dp))
+        Footer(Modifier.align(Alignment.BottomCenter))
     }
 }
 
@@ -90,6 +86,28 @@ fun Body(modifier: Modifier) {
 }
 
 @Composable
+fun Footer(modifier: Modifier) {
+    Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally) {
+        Divider(color = Color.LightGray, thickness = 1.dp)
+        Spacer(modifier = Modifier.size(8.dp))
+        Row() {
+            Text(
+                text = "Don't have an account? ",
+                color = Color.Gray,
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Normal
+            )
+            Text(
+                text = "Sign up",
+                color = Color.Cyan,
+                fontSize = 14.sp,
+                fontWeight = FontWeight.SemiBold
+            )
+        }
+    }
+}
+
+@Composable
 fun Logo(modifier: Modifier) {
     Image(
         painter = painterResource(id = R.drawable.logo_aplitop),
@@ -121,7 +139,7 @@ fun ForgotPassword(modifier: Modifier) {
     Text(
         "Forgot password?",
         modifier = modifier,
-        fontSize = 12.sp,
+        fontSize = 14.sp,
         fontWeight = FontWeight.SemiBold,
         color = Color.Cyan
     )
@@ -142,7 +160,7 @@ fun LoginButton(isLoginEnabled: Boolean) {
 @Composable
 fun DividerLine() {
     Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-        Divider(color = Color.Gray, thickness = 1.dp, modifier = Modifier.weight(1f))
+        Divider(color = Color.LightGray, thickness = 1.dp, modifier = Modifier.weight(1f))
         Text(
             text = "OR",
             color = Color.Gray,
@@ -150,7 +168,7 @@ fun DividerLine() {
             textAlign = TextAlign.Center,
             modifier = Modifier.padding(horizontal = 16.dp)
         )
-        Divider(color = Color.Gray, thickness = 1.dp, modifier = Modifier.weight(1f))
+        Divider(color = Color.LightGray, thickness = 1.dp, modifier = Modifier.weight(1f))
     }
 }
 
@@ -167,17 +185,10 @@ fun SocialLogin() {
             tint = Color.Cyan
         )
         Text(
-            text = "Continue as ",
+            text = "Continue as Jose Navío",
             fontWeight = FontWeight.SemiBold,
-            fontSize = 14.sp,
+            fontSize = 16.sp,
             modifier = Modifier.padding(start = 8.dp),
-            color = Color.Cyan
-        )
-        Text(
-            text = "Jose Navío",
-            fontWeight = FontWeight.Bold,
-            fontSize = 14.sp,
-            modifier = Modifier.padding(end = 8.dp),
             color = Color.Cyan
         )
     }
@@ -186,6 +197,5 @@ fun SocialLogin() {
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun TestPreview() {
-    var isLoginEnabled by remember { mutableStateOf(false) }
-    LoginButton(isLoginEnabled)
+
 }
