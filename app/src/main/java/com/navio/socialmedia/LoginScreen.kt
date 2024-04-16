@@ -19,12 +19,10 @@ import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
 import androidx.compose.material3.Divider
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldColors
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -127,18 +125,16 @@ fun Logo(modifier: Modifier) {
     )
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Email(email: String, onEmailChange: (String) -> Unit) {
     TextField(
         value = email,
-        shape = RoundedCornerShape(8.dp),
         onValueChange = { value -> onEmailChange(value) },
         modifier = Modifier.fillMaxWidth(),
         placeholder = { Text("Email") },
         shape = RoundedCornerShape(8.dp),
         colors = TextFieldDefaults.colors(
-            focusedPlaceholderColor = Color.LightGray,
+            focusedPlaceholderColor = Color.DarkGray,
             focusedTextColor = Color.DarkGray,
             focusedContainerColor = Color.LightGray,
             focusedIndicatorColor = Color.Transparent,
@@ -162,13 +158,15 @@ fun Password(password: String, onPasswordChange: (String) -> Unit) {
         placeholder = { Text("Password") },
         shape = RoundedCornerShape(8.dp),
         colors = TextFieldDefaults.colors(
-            focusedPlaceholderColor = Color.LightGray,
+            focusedPlaceholderColor = Color.DarkGray,
             focusedTextColor = Color.DarkGray,
             focusedContainerColor = Color.LightGray,
             focusedIndicatorColor = Color.Transparent,
+            focusedTrailingIconColor = Color.Gray,
             unfocusedPlaceholderColor = Color.Black,
             unfocusedContainerColor = Color.Gray,
             unfocusedIndicatorColor = Color.Transparent,
+            unfocusedTrailingIconColor = Color.DarkGray,
         ),
         singleLine = true,
         maxLines = 1,
@@ -183,7 +181,6 @@ fun Password(password: String, onPasswordChange: (String) -> Unit) {
                 Icon(
                     imageVector = eyeIcon,
                     contentDescription = "Password visibility",
-                    tint = Color.Gray
                 )
             }
         },
