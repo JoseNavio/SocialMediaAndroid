@@ -14,14 +14,17 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldColors
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -35,6 +38,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -131,26 +136,62 @@ fun Email(email: String, onEmailChange: (String) -> Unit) {
         onValueChange = { value -> onEmailChange(value) },
         modifier = Modifier.fillMaxWidth(),
         placeholder = { Text("Email") },
-        maxLines = 1,
-        singleLine = true,
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+        shape = RoundedCornerShape(8.dp),
         colors = TextFieldDefaults.colors(
+            focusedPlaceholderColor = Color.LightGray,
+            focusedTextColor = Color.DarkGray,
             focusedContainerColor = Color.LightGray,
-            unfocusedContainerColor = Color.Gray,
-            focusedLabelColor = Color.Cyan,
-            disabledContainerColor = Color.DarkGray,
             focusedIndicatorColor = Color.Transparent,
-            unfocusedIndicatorColor = Color.Transparent
-        )
+            unfocusedPlaceholderColor = Color.Black,
+            unfocusedContainerColor = Color.Gray,
+            unfocusedIndicatorColor = Color.Transparent,
+        ),
+        singleLine = true,
+        maxLines = 1,
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
     )
 }
 
 @Composable
 fun Password(password: String, onPasswordChange: (String) -> Unit) {
+    var passwordVisibility by remember { mutableStateOf(false) }
     TextField(
         value = password,
         onValueChange = { value -> onPasswordChange(value) },
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth(),
+        placeholder = { Text("Password") },
+        shape = RoundedCornerShape(8.dp),
+        colors = TextFieldDefaults.colors(
+            focusedPlaceholderColor = Color.LightGray,
+            focusedTextColor = Color.DarkGray,
+            focusedContainerColor = Color.LightGray,
+            focusedIndicatorColor = Color.Transparent,
+            unfocusedPlaceholderColor = Color.Black,
+            unfocusedContainerColor = Color.Gray,
+            unfocusedIndicatorColor = Color.Transparent,
+        ),
+        singleLine = true,
+        maxLines = 1,
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+        trailingIcon = {
+            val eyeIcon = if (passwordVisibility) {
+                Icons.Filled.VisibilityOff
+            } else {
+                Icons.Filled.Visibility
+            }
+            IconButton(onClick = { passwordVisibility = !passwordVisibility }) {
+                Icon(
+                    imageVector = eyeIcon,
+                    contentDescription = "Password visibility",
+                    tint = Color.Gray
+                )
+            }
+        },
+        visualTransformation = if (passwordVisibility) {
+            VisualTransformation.None
+        } else {
+            PasswordVisualTransformation()
+        }
     )
 }
 
