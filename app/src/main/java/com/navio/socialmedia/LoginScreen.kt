@@ -1,6 +1,10 @@
 package com.navio.socialmedia
 
 import android.app.Activity
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -74,6 +78,7 @@ fun Header(modifier: Modifier) {
 fun Body(modifier: Modifier) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    var copy by remember { mutableStateOf("") }
     var isLoginEnabled by remember { mutableStateOf(false) }
 
     Column(modifier = modifier) {
@@ -82,6 +87,8 @@ fun Body(modifier: Modifier) {
         Email(email) { value -> email = value }
         Spacer(modifier = Modifier.size(8.dp))
         Password(password) { value -> password = value }
+        Spacer(modifier = Modifier.size(8.dp))
+        Copy("Value to copy...")
         Spacer(modifier = Modifier.size(8.dp))
         //The modifier of this column which is the parent...
         ForgotPassword(Modifier.align(Alignment.End))
@@ -138,13 +145,24 @@ fun Email(email: String, onEmailChange: (String) -> Unit) {
             focusedTextColor = Color.DarkGray,
             focusedContainerColor = Color.LightGray,
             focusedIndicatorColor = Color.Transparent,
+            focusedTrailingIconColor = Color.Gray,
             unfocusedPlaceholderColor = Color.Black,
             unfocusedContainerColor = Color.Gray,
             unfocusedIndicatorColor = Color.Transparent,
+            unfocusedTrailingIconColor = Color.DarkGray,
         ),
         singleLine = true,
         maxLines = 1,
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+        //Field trailing icon
+        trailingIcon = {
+            IconButton(onClick = { onEmailChange("") }) {
+                Icon(
+                    painter = painterResource(id = R.drawable.icon_delete),
+                    contentDescription = "Clear",
+                )
+            }
+        },
     )
 }
 
@@ -166,11 +184,12 @@ fun Password(password: String, onPasswordChange: (String) -> Unit) {
             unfocusedPlaceholderColor = Color.Black,
             unfocusedContainerColor = Color.Gray,
             unfocusedIndicatorColor = Color.Transparent,
-            unfocusedTrailingIconColor = Color.DarkGray,
+            unfocusedTrailingIconColor = Color.DarkGray
         ),
         singleLine = true,
         maxLines = 1,
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+        //Field trailing icon
         trailingIcon = {
             val eyeIcon = if (passwordVisibility) {
                 Icons.Filled.VisibilityOff
@@ -189,6 +208,41 @@ fun Password(password: String, onPasswordChange: (String) -> Unit) {
         } else {
             PasswordVisualTransformation()
         }
+    )
+}
+
+@Composable
+fun Copy(text: String) {
+    //Class to access the clipboard and copy the text
+    val context = LocalContext.current
+    val clipboardManager = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+    TextField(
+        value = text,
+        enabled = false,
+        onValueChange = {  },
+        modifier = Modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(8.dp),
+        colors = TextFieldDefaults.colors(
+            disabledPlaceholderColor = Color.Black,
+            disabledContainerColor = Color.Gray,
+            disabledIndicatorColor = Color.Transparent,
+            disabledTrailingIconColor = Color.DarkGray
+        ),
+        singleLine = true,
+        maxLines = 1,
+        //Field trailing icon
+        trailingIcon = {
+            IconButton(onClick = {
+                val clip = ClipData.newPlainText("copy", text)
+                clipboardManager.setPrimaryClip(clip)
+                Toast.makeText(context, "Copied", Toast.LENGTH_SHORT).show()
+            }) {
+                Icon(
+                    painter = painterResource(id = R.drawable.icon_save),
+                    contentDescription = "Copy text to clipboard",
+                )
+            }
+        },
     )
 }
 
