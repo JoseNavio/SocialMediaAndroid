@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.util.Patterns
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -22,6 +23,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -84,9 +86,15 @@ fun Body(modifier: Modifier) {
     Column(modifier = modifier) {
         Logo(Modifier.align(Alignment.CenterHorizontally))
         Spacer(modifier = Modifier.size(32.dp))
-        Email(email) { value -> email = value }
+        Email(email) { value ->
+            email = value
+            isLoginEnabled = enableLoginButton(email, password)
+        }
         Spacer(modifier = Modifier.size(8.dp))
-        Password(password) { value -> password = value }
+        Password(password) { value ->
+            password = value
+            isLoginEnabled = enableLoginButton(email, password)
+        }
         Spacer(modifier = Modifier.size(8.dp))
         Copy("Value to copy...")
         Spacer(modifier = Modifier.size(8.dp))
@@ -219,7 +227,7 @@ fun Copy(text: String) {
     TextField(
         value = text,
         enabled = false,
-        onValueChange = {  },
+        onValueChange = { },
         modifier = Modifier.fillMaxWidth(),
         shape = RoundedCornerShape(8.dp),
         colors = TextFieldDefaults.colors(
@@ -263,11 +271,20 @@ fun LoginButton(isLoginEnabled: Boolean) {
         onClick = { /*TODO*/ },
         enabled = isLoginEnabled,
         shape = RoundedCornerShape(8.dp),
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth(),
+        colors = ButtonDefaults.buttonColors(
+            containerColor = Color.Cyan,
+            contentColor = Color.White,
+            disabledContainerColor = Color.LightGray,
+            disabledContentColor = Color.Gray
+        )
     ) {
         Text("Log in")
     }
 }
+
+private fun enableLoginButton(email: String, password: String) =
+    Patterns.EMAIL_ADDRESS.matcher(email).matches() && password.length >= 6
 
 @Composable
 fun DividerLine() {
