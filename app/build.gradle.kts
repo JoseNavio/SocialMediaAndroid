@@ -53,6 +53,9 @@ dependencies {
 
     //Icons
     implementation("androidx.compose.material:material-icons-extended:1.6.5")
+    //Constraint
+    implementation("androidx.constraintlayout:constraintlayout-compose:1.0.1")
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
