@@ -2,7 +2,6 @@ package com.navio.socialmedia
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -92,7 +91,7 @@ fun TweetScreenConstraint() {
 @Composable
 fun Avatar() {
     Image(
-        painter = painterResource(id = R.drawable.image_profile),
+        painter = painterResource(id = R.drawable.logo_aplitop_squared),
         contentDescription = "Profile Picture",
         contentScale = ContentScale.Crop,
         modifier = Modifier
@@ -115,7 +114,7 @@ fun Header() {
     Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {
         //Nick
         Text(
-            text = "Aris",
+            text = "Aplitop",
             textAlign = TextAlign.Start,
             color = Color.White,
             fontWeight = FontWeight.Bold,
@@ -123,7 +122,7 @@ fun Header() {
         )
         //Email
         Text(
-            text = "@AristiDevs",
+            text = "@Aplitop",
             textAlign = TextAlign.Start,
             color = Color.Gray,
             fontWeight = FontWeight.Normal,
@@ -137,17 +136,13 @@ fun Header() {
             fontWeight = FontWeight.Normal,
             modifier = Modifier.padding(horizontal = 4.dp)
         )
+        Spacer(modifier = Modifier.weight(1f))
         //Menu icon
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.End
-        ) {
-            Icon(
-                imageVector = Icons.Default.MoreHoriz,
-                contentDescription = "Menu",
-                tint = Color.White
-            )
-        }
+        Icon(
+            imageVector = Icons.Default.MoreHoriz,
+            contentDescription = "Menu",
+            tint = Color.White
+        )
     }
 }
 
@@ -155,19 +150,22 @@ fun Header() {
 fun Body() {
     Text(
         modifier = Modifier.padding(4.dp),
-        text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam est justo, vulputate sit amet consequat at, rhoncus et mauris. Suspendisse ultrices mi ut lectus venenatis, ut faucibus justo dignissim. Cras in venenatis nisi, quis sollicitudin libero.",
+        text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam est justo, " +
+                "vulputate sit amet consequat at, rhoncus et mauris. Suspendisse ultrices mi ut " +
+                "lectus venenatis, ut faucibus justo dignissim. Cras in venenatis nisi, quis " +
+                "sollicitudin libero.",
         textAlign = TextAlign.Start,
         color = Color.White
     )
     Spacer(modifier = Modifier.size(4.dp))
     Image(
-        painter = painterResource(id = R.drawable.image_profile),
+        painter = painterResource(id = R.drawable.aplitop_advert),
         contentDescription = ("Image"),
-        contentScale = ContentScale.Crop,
         modifier = Modifier
             .padding(4.dp)
             .clip(RoundedCornerShape(16.dp))
-            .aspectRatio(1.5f)
+            .aspectRatio(3/2f),
+        contentScale = ContentScale.Crop
     )
 }
 
@@ -252,7 +250,7 @@ fun FooterIcon(
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable()
-fun Preview() {
+fun TweetPreview() {
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = Color(0xFF15202B)
