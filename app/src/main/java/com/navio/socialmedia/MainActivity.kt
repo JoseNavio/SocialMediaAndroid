@@ -32,7 +32,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = Color(0xFF15202B)
                 ) {
-                    TweetScreenConstraint()
+                   RecyclerViewScreen()
                 }
             }
         }
