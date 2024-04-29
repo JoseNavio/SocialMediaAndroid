@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -30,9 +31,11 @@ class MainActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = Color(0xFF15202B)
+//                    color = Color(0xFF15202B)
+                    color = Color.White
                 ) {
-                   RecyclerViewScreen()
+//                    LoginScreen() { finish() }
+                    ScaffoldScreen()
                 }
             }
         }
@@ -60,8 +63,6 @@ fun GreetingPreview() {
         modifier = Modifier.fillMaxSize(),
         color = Color(0xFF15202B)
     ) {
-        Box(modifier = Modifier.padding(8.dp)) {
-            BlueBox()
-        }
+        LoginScreen() { }
     }
 }

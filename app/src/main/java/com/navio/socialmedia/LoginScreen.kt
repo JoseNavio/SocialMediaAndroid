@@ -1,6 +1,5 @@
 package com.navio.socialmedia
 
-import android.app.Activity
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
@@ -50,13 +49,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun LoginScreen() {
+fun LoginScreen(onFinish: () -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp)
     ) {
-        Header(Modifier.align(Alignment.TopEnd))
+        Header(Modifier.align(Alignment.TopEnd), onFinish)
         Spacer(modifier = Modifier.size(16.dp))
         Body(Modifier.align(Alignment.Center))
         Spacer(modifier = Modifier.size(16.dp))
@@ -65,16 +64,16 @@ fun LoginScreen() {
 }
 
 @Composable
-fun Header(modifier: Modifier) {
-    val activity = LocalContext.current as Activity
+fun Header(modifier: Modifier, onIconClick: () -> Unit) {
     Icon(
         painter = painterResource(id = R.drawable.icon_cross),
         contentDescription = "Close application",
         modifier = modifier
             .size(32.dp)
-            .clickable { activity.finish() }
+            .clickable { onIconClick() }
     )
 }
+
 
 @Composable
 fun Body(modifier: Modifier) {
@@ -326,5 +325,5 @@ fun SocialLogin() {
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun TestPreview() {
-
+    LoginScreen(){}
 }

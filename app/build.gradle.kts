@@ -51,6 +51,8 @@ android {
 
 dependencies {
 
+    //Material
+    implementation("androidx.compose.material:material:1.0.0")
     //Icons
     implementation("androidx.compose.material:material-icons-extended:1.6.5")
     //Constraint
