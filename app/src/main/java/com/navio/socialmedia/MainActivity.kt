@@ -21,6 +21,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.navio.socialmedia.sealed.Routes
 import com.navio.socialmedia.ui.theme.SocialMediaTheme
 
 class MainActivity : ComponentActivity() {
@@ -35,7 +41,42 @@ class MainActivity : ComponentActivity() {
                     color = Color.White
                 ) {
 //                    LoginScreen() { finish() }
-                    ScaffoldScreen()
+//                    ScaffoldScreen()
+
+                    //Navigation Controller
+                    val navigationController = rememberNavController()
+                    NavHost(
+                        navController = navigationController,
+                        startDestination = Routes.Screen1.route
+                    ) {
+                        composable(route = Routes.Screen1.route) { Screen1(navigationController) }
+                        composable(route = Routes.Screen2.route) { Screen2(navigationController) }
+                        composable(route = Routes.Screen3.route) { Screen3(navigationController) }
+
+                        //Arguments
+                        composable(
+                            route = Routes.Screen4.route,
+                            arguments = listOf(navArgument("name") { type = NavType.StringType })
+                        ) { backStackEntry ->
+                            Screen4(
+                                navigationController,
+                                backStackEntry.arguments?.getString("name")
+                            )
+                        }
+                        //Optional parameters in the function...
+                        composable(
+                            route = Routes.Screen5.route, arguments = listOf(
+                                navArgument(
+                                    "name",
+                                ) { defaultValue = "Pepe" }
+                            )
+                        ) { backStackEntry ->
+                            Screen5(
+                                navigationController,
+                                backStackEntry.arguments?.getString("name")
+                            )
+                        }
+                    }
                 }
             }
         }
