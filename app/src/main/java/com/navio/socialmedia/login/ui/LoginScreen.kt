@@ -1,9 +1,8 @@
-package com.navio.socialmedia
+package com.navio.socialmedia.login.ui
 
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
-import android.util.Patterns
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -31,6 +30,7 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -47,9 +47,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.navio.socialmedia.R
 
 @Composable
-fun LoginScreen(onFinish: () -> Unit) {
+fun LoginScreen(loginViewModel: LoginViewModel, onFinish: () -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -57,7 +58,7 @@ fun LoginScreen(onFinish: () -> Unit) {
     ) {
         Header(Modifier.align(Alignment.TopEnd), onFinish)
         Spacer(modifier = Modifier.size(16.dp))
-        Body(Modifier.align(Alignment.Center))
+        Body(Modifier.align(Alignment.Center), loginViewModel)
         Spacer(modifier = Modifier.size(16.dp))
         Footer(Modifier.align(Alignment.BottomCenter))
     }
@@ -76,23 +77,21 @@ fun Header(modifier: Modifier, onIconClick: () -> Unit) {
 
 
 @Composable
-fun Body(modifier: Modifier) {
-    var email by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
-    var copy by remember { mutableStateOf("") }
-    var isLoginEnabled by remember { mutableStateOf(false) }
+fun Body(modifier: Modifier, loginViewModel: LoginViewModel) {
+    //Observers
+    val email by loginViewModel.email.observeAsState(initial = "")
+    val password by loginViewModel.password.observeAsState(initial = "")
+    val enabledLogin by loginViewModel.isLoginEnabled.observeAsState(initial = false)
 
     Column(modifier = modifier) {
         Logo(Modifier.align(Alignment.CenterHorizontally))
         Spacer(modifier = Modifier.size(32.dp))
         Email(email) { value ->
-            email = value
-            isLoginEnabled = enableLoginButton(email, password)
+            loginViewModel.onLoginValuesChanged(value, password)
         }
         Spacer(modifier = Modifier.size(8.dp))
         Password(password) { value ->
-            password = value
-            isLoginEnabled = enableLoginButton(email, password)
+            loginViewModel.onLoginValuesChanged(email, value)
         }
         Spacer(modifier = Modifier.size(8.dp))
         Copy("Value to copy...")
@@ -100,7 +99,7 @@ fun Body(modifier: Modifier) {
         //The modifier of this column which is the parent...
         ForgotPassword(Modifier.align(Alignment.End))
         Spacer(modifier = Modifier.size(32.dp))
-        LoginButton(isLoginEnabled)
+        LoginButton(enabledLogin)
         Spacer(modifier = Modifier.size(16.dp))
         DividerLine()
         Spacer(modifier = Modifier.size(16.dp))
@@ -282,9 +281,6 @@ fun LoginButton(isLoginEnabled: Boolean) {
     }
 }
 
-private fun enableLoginButton(email: String, password: String) =
-    Patterns.EMAIL_ADDRESS.matcher(email).matches() && password.length >= 6
-
 @Composable
 fun DividerLine() {
     Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
@@ -325,5 +321,5 @@ fun SocialLogin() {
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun TestPreview() {
-    LoginScreen(){}
+    LoginScreen(LoginViewModel()) {}
 }
