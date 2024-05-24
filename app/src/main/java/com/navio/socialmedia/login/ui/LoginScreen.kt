@@ -66,8 +66,7 @@ fun LoginScreen(loginViewModel: LoginViewModel, onFinish: () -> Unit) {
         Spacer(modifier = Modifier.size(16.dp))
         Footer(Modifier.align(Alignment.BottomCenter))
         //Painted the last so it's on top of everything...
-//        if (isLoading) {
-        if (true) {
+        if (isLoading) {
             //Loading...
             Box(
                 Modifier
@@ -339,5 +338,5 @@ fun SocialLogin() {
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun TestPreview() {
-    LoginScreen(LoginViewModel()) {}
+//    LoginScreen(LoginViewModel()) {}
 }

@@ -102,6 +102,6 @@ fun GreetingPreview() {
         modifier = Modifier.fillMaxSize(),
         color = Color(0xFF15202B)
     ) {
-        LoginScreen(LoginViewModel()) { }
+//        LoginScreen(LoginViewModel()) { }
     }
 }
