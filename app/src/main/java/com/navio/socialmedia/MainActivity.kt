@@ -19,6 +19,7 @@ import com.navio.socialmedia.login.ui.LoginViewModel
 import com.navio.socialmedia.ui.theme.SocialMediaTheme
 
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -70,6 +71,8 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+
+
     }
 }
 

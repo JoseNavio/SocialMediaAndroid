@@ -72,6 +72,10 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.7.7")
     //LiveData
     implementation("androidx.compose.runtime:runtime-livedata:1.6.7")
+    //Retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.11.0")
+    //Gson
+    implementation("com.squareup.retrofit2:converter-gson:2.11.0")
 
     implementation("com.google.dagger:hilt-android:2.51.1")
     kapt ("com.google.dagger:hilt-compiler:2.51.1")

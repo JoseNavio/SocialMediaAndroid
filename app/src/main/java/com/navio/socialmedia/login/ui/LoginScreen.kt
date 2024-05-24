@@ -3,6 +3,7 @@ package com.navio.socialmedia.login.ui
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -22,6 +23,7 @@ import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -56,11 +58,25 @@ fun LoginScreen(loginViewModel: LoginViewModel, onFinish: () -> Unit) {
             .fillMaxSize()
             .padding(16.dp)
     ) {
+        val isLoading by loginViewModel.isLoading.observeAsState(initial = false)
+
         Header(Modifier.align(Alignment.TopEnd), onFinish)
         Spacer(modifier = Modifier.size(16.dp))
         Body(Modifier.align(Alignment.Center), loginViewModel)
         Spacer(modifier = Modifier.size(16.dp))
         Footer(Modifier.align(Alignment.BottomCenter))
+        //Painted the last so it's on top of everything...
+//        if (isLoading) {
+        if (true) {
+            //Loading...
+            Box(
+                Modifier
+                    .fillMaxSize()
+                    .align(Alignment.Center)
+            ) {
+                CircularProgressIndicator(modifier = Modifier.align(Alignment.Center),color = Color.DarkGray)
+            }
+        }
     }
 }
 
@@ -99,7 +115,7 @@ fun Body(modifier: Modifier, loginViewModel: LoginViewModel) {
         //The modifier of this column which is the parent...
         ForgotPassword(Modifier.align(Alignment.End))
         Spacer(modifier = Modifier.size(32.dp))
-        LoginButton(enabledLogin)
+        LoginButton(enabledLogin, loginViewModel)
         Spacer(modifier = Modifier.size(16.dp))
         DividerLine()
         Spacer(modifier = Modifier.size(16.dp))
@@ -264,9 +280,11 @@ fun ForgotPassword(modifier: Modifier) {
 }
 
 @Composable
-fun LoginButton(isLoginEnabled: Boolean) {
+fun LoginButton(isLoginEnabled: Boolean, loginViewModel: LoginViewModel) {
     Button(
-        onClick = { /*TODO*/ },
+        onClick = {
+            loginViewModel.onLoginSelected()
+        },
         enabled = isLoginEnabled,
         shape = RoundedCornerShape(8.dp),
         modifier = Modifier.fillMaxWidth(),
