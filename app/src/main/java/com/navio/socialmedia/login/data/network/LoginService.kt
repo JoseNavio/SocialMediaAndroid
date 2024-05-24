@@ -4,8 +4,9 @@ import android.util.Log
 import com.navio.socialmedia.core.network.RetrofitHelper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class LoginService {
+class LoginService @Inject constructor() {
 
     private val retrofitObject = RetrofitHelper.getRetrofitInstance()
 

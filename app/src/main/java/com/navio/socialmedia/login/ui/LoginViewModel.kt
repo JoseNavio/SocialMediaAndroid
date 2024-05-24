@@ -5,13 +5,14 @@ import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import androidx.lifecycle.viewModelScope
 import com.navio.socialmedia.login.data.network.LoginUseCase
 import kotlinx.coroutines.launch
 
-class LoginViewModel : ViewModel() {
-
-    val loginUseCase = LoginUseCase()
+@HiltViewModel
+class LoginViewModel @Inject constructor(private val loginUseCase: LoginUseCase) : ViewModel() {
 
     //Email
     /** _ is used to indicate that the variable is private, it only can be modified inside this class */

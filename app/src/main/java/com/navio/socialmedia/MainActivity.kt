@@ -3,6 +3,7 @@ package com.navio.socialmedia
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -17,9 +18,13 @@ import androidx.compose.ui.unit.dp
 import com.navio.socialmedia.login.ui.LoginScreen
 import com.navio.socialmedia.login.ui.LoginViewModel
 import com.navio.socialmedia.ui.theme.SocialMediaTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
+
+    private val loginViewModel:LoginViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -30,7 +35,7 @@ class MainActivity : ComponentActivity() {
 //                    color = Color(0xFF15202B)
                     color = Color.White
                 ) {
-                    LoginScreen(LoginViewModel()) { finish() }
+                    LoginScreen(loginViewModel) { finish() }
 
 //                    ScaffoldScreen()
 

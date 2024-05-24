@@ -1,6 +1,7 @@
 package com.navio.socialmedia.login.data.network
 
 import android.util.Log
+import javax.inject.Inject
 
 /** We uses repository pattern to abstract the data source from the view model
  *
@@ -8,9 +9,7 @@ import android.util.Log
  * a local database.
  *
  */
-class LoginRepository {
-
-    private val api = LoginService()
+class LoginRepository @Inject constructor(private val api : LoginService){
 
     suspend fun login(user: String, password: String) :Boolean {
         return api.login(user, password)
