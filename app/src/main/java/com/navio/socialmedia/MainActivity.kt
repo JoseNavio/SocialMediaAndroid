@@ -17,6 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.navio.socialmedia.login.ui.LoginScreen
 import com.navio.socialmedia.login.ui.LoginViewModel
+import com.navio.socialmedia.login.ui.VisibilityAnimation
 import com.navio.socialmedia.ui.theme.SocialMediaTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -35,6 +36,7 @@ class MainActivity : ComponentActivity() {
 //                    color = Color(0xFF15202B)
                     color = Color.White
                 ) {
+//                    VisibilityAnimation()
                     LoginScreen(loginViewModel) { finish() }
 
 //                    ScaffoldScreen()

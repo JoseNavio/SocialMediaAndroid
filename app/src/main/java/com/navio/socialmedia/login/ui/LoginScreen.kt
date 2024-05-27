@@ -51,6 +51,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.navio.socialmedia.R
 
+
 @Composable
 fun LoginScreen(loginViewModel: LoginViewModel, onFinish: () -> Unit) {
     Box(

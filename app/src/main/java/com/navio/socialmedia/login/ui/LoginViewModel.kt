@@ -38,7 +38,6 @@ class LoginViewModel @Inject constructor(private val loginUseCase: LoginUseCase)
         _password.value = password
         //Enable or disable login button
         enableDisableLoginButton(email, password)
-
     }
 
     fun onLoginSelected() {
